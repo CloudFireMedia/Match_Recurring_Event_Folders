@@ -1,10 +1,6 @@
-onFormSubmit(e) {
-  //
-}
-
-function Test_1() {
-  //formattingFolders('1QCL3GW2vT7P9JxFmtHDecQeWcBJ427SL'); //Original
-  formattingFolders('11qCKoGU7bY_y0nEQ5H-EYrQmxkUeQABV'); //My
+function onAddRow() {
+  //formattingFolders('11qCKoGU7bY_y0nEQ5H-EYrQmxkUeQABV'); //My
+  formattingFolders('1QCL3GW2vT7P9JxFmtHDecQeWcBJ427SL'); //Original
 }
 
 function moveFolder(sourceFolderId, targetFolderId) {
@@ -45,8 +41,10 @@ function getMatchStringsPct(source, target) {
 function formattingFolders(folderId) {
   var TZ = Session.getScriptTimeZone(),
       rootFolder = DriveApp.getFolderById(folderId),
-      graphicsFolder = DriveApp.getFolderById('1f4KbFBrFbp1_VyYi8ciWAv-fmOAZd7aJ'),
-      tplFolder = DriveApp.getFolderById('13p5ghAWGpR678C2MExQtKFmPpSsW_6qk'),
+      //graphicsFolder = DriveApp.getFolderById('1f4KbFBrFbp1_VyYi8ciWAv-fmOAZd7aJ'), //My
+      graphicsFolder = DriveApp.getFolderById('1Ib_66zv1qwUFkLiaxPf9W7w9xiANbHVJ'), //Original
+      //tplFolder = DriveApp.getFolderById('13p5ghAWGpR678C2MExQtKFmPpSsW_6qk'), //My
+      tplFolder = DriveApp.getFolderById('1mmgw9NHhkcVypUpLL_ycBSKyq6hvfjLS'), //Original
       folders = rootFolder.getFolders(),
       ss = SpreadsheetApp.openById('1JEqPQJSiBliliqw1y-wrrdP6ikU11DPuIF72l-rN84g'),
       sheet = ss.getSheetByName('Incoming_Data'),
@@ -64,11 +62,11 @@ function formattingFolders(folderId) {
 
       if (comparisonPct > 25) {
         var prefix = Utilities.formatDate(date, TZ, '[ yyyy.MM.dd ] ');
-        //найденое - переместить на уровень выше
+
         folder.setName(prefix + folderTitle);
         moveFolder(folder.getId(), graphicsFolder.getId());
       } else {
-        //ненайденое - скопировать в папку Х
+
         copyFolder(folder.getId(), tplFolder.getId());
       }
     }

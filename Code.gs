@@ -3,7 +3,7 @@ onFormSubmit(e) {
 }
 
 function Test_1() {
-  //formattingFolders('1QCL3GW2vT7P9JxFmtHDecQeWcBJ427SL');
+  formattingFolders('1QCL3GW2vT7P9JxFmtHDecQeWcBJ427SL');
 }
 
 function getMatchStringsPct(src, dst) {

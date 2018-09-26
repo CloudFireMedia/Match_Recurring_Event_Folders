@@ -3,10 +3,8 @@ function onAddRow() {
   formattingFolders('1QCL3GW2vT7P9JxFmtHDecQeWcBJ427SL'); //Original
 }
 
-function moveFolder(sourceFolderId, targetFolderId) {
-  var target = DriveApp.getFolderById(targetFolderId),
-      source = DriveApp.getFolderById(sourceFolderId),
-      currents = source.getParents();
+function moveFolder(source, target) {
+  var currents = source.getParents();
 
   while (currents.hasNext()) {
     var folder = currents.next();
@@ -17,11 +15,12 @@ function moveFolder(sourceFolderId, targetFolderId) {
   target.addFolder(source);
 }
 
-function copyFolder(sourceFolderId, targetFolderId) {
-  var target = DriveApp.getFolderById(targetFolderId),
-      source = DriveApp.getFolderById(sourceFolderId);
+function copyFolders(folders, target) {
+  while (folders.hasNext()) {
+    var folder = folders.next();
 
-  target.addFolder(source);
+    target.addFolder(folder);
+  }
 }
 
 function getMatchStringsPct(source, target) {
@@ -65,16 +64,10 @@ function formattingFolders(folderId) {
 
         folder.setName(prefix + folderTitle);
         
-        moveFolder(folder.getId(), graphicsFolder.getId());
+        moveFolder(folder, graphicsFolder);
       }
     }
   }
 
-  var folders = eventsFolder.getFolders();
-
-  while (folders.hasNext()) {
-    var folder = folders.next();
-
-    copyFolder(folder.getId(), tplFolder.getId());
-  }
+  copyFolders(eventsFolder.getFolders(), tplFolder);
 }
